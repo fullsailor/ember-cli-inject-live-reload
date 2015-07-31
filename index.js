@@ -5,13 +5,16 @@ module.exports = {
 
   contentFor: function(type, config) {
     if (type !== 'head') { return; }
-    if (config.liveReload !== true) { return; }
 
-    var src
-    if (config.liveReloadServer) {
-      src = config.liveReloadServer + '/livereload.js?snipver=1'
+    var options = config.options;
+    if (options.liveReload !== true) { return; }
+
+    var src;
+    if (options.liveReloadServer) {
+      src = options.liveReloadServer + '/livereload.js?snipver=1'
     } else {
       var scheme = options.ssl ? 'https://' : 'http://';
+      var liveReloadHost = options.liveReloadHost || options.host;
       src = [scheme, liveReloadHost, ':', options.liveReloadPort, ].join('');
     }
 
